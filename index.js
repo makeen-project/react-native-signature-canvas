@@ -9,8 +9,6 @@ import { WebView } from "react-native-webview";
 
 const styles = StyleSheet.create({
   webBg: {
-    width: "100%",
-    backgroundColor: "#FFF",
     flex: 1
   },
   loadingOverlayContainer: { position: "absolute", top: 0, bottom: 0, left: 0, right: 0, alignItems: "center", justifyContent: "center" },
@@ -32,6 +30,7 @@ const SignatureView = forwardRef(({
   dataURL = "",
   penColor = "",
   backgroundColor = "",
+  style,
 }, ref) => {
   const [loading, setLoading] = useState(true);
   const webViewRef = useRef();
@@ -43,7 +42,7 @@ const SignatureView = forwardRef(({
     injectedJavaScript = injectedJavaScript.replace("<%dataURL%>", dataURL);
     injectedJavaScript = injectedJavaScript.replace("<%penColor%>", penColor);
     injectedJavaScript = injectedJavaScript.replace("<%backgroundColor%>", backgroundColor);
-    
+
     let html = htmlContentValue(injectedJavaScript);
     html = html.replace("<%style%>", webStyle);
     html = html.replace("<%description%>", descriptionText);
@@ -91,14 +90,15 @@ const SignatureView = forwardRef(({
   };
 
   return (
-    <View style={styles.webBg}>
+    <View style={[styles.webBg, style]}>
       <WebView
+        automaticallyAdjustContentInsets={false}
         ref={webViewRef}
-        useWebKit={true}
         source={source}
         onMessage={getSignature}
         javaScriptEnabled={true}
         onError={renderError}
+        style={{ backgroundColor: 'transparent' }}
         onLoadEnd={() => setLoading(false)}
       />
       {loading && <View style={styles.loadingOverlayContainer}>
