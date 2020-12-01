@@ -23,6 +23,7 @@ declare module "react-native-signature-canvas" {
     dataURL?: DataURL;
     penColor?: string;
     backgroundColor?: string;
+    minWidth?: number,
   }
 
   export type SignatureViewRef = {
