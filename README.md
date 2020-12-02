@@ -1,6 +1,10 @@
 # react-native-signature-canvas
 
 [![](https://img.shields.io/npm/l/react-native-signature-canvas.svg)](https://www.npmjs.com/package/react-native-signature-canvas)
+[![](https://img.shields.io/npm/v/react-native-signature-canvas)](https://www.npmjs.com/package/react-native-signature-canvas)
+![npm](https://img.shields.io/npm/dt/react-native-signature-canvas)
+![GitHub last commit](https://img.shields.io/github/last-commit/yanyuanfe/react-native-signature-canvas)
+
 
 React Native Signature Component based Canvas for Android &amp;&amp; IOS &amp;&amp; expo
 
@@ -49,6 +53,8 @@ import Signature from 'react-native-signature-canvas';
 | dataURL | `string` | default is "", Base64 string, Draws signature image from data URL.
 | penColor | `string` | default is "black", color of pen
 | backgroundColor | `string` | default is "rgba(0,0,0,0)", backgroundColor of canvas
+| dotSize | `number` | radius of a single dot
+| minWidth | `number` | minimum width of a line. Defaults to 0.5
 
 ## Methods
 -------------
@@ -175,7 +181,7 @@ const webStyle = `.m-signature-pad--footer
 
 
 ```js
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Signature from 'react-native-signature-canvas';
 
@@ -199,17 +205,17 @@ export const SignatureScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.preview}>
-        {this.state.signature ? (
+        {signature ? (
           <Image
             resizeMode={"contain"}
             style={{ width: 335, height: 114 }}
-            source={{ uri: this.state.signature }}
+            source={{ uri: signature }}
           />
         ) : null}
       </View>
       <Signature
-        onOK={this.handleSignature}
-        onEmpty={this.handleEmpty}
+        onOK={handleSignature}
+        onEmpty={handleEmpty}
         descriptionText="Sign"
         clearText="Clear"
         confirmText="Save"
