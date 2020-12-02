@@ -31,6 +31,9 @@ const SignatureView = forwardRef(({
   penColor = "",
   backgroundColor = "",
   style,
+  dotSize = 0,
+  minWidth = 0.5,
+  androidHardwareAccelerationDisabled = false,
 }, ref) => {
   const [loading, setLoading] = useState(true);
   const webViewRef = useRef();
@@ -42,6 +45,8 @@ const SignatureView = forwardRef(({
     injectedJavaScript = injectedJavaScript.replace("<%dataURL%>", dataURL);
     injectedJavaScript = injectedJavaScript.replace("<%penColor%>", penColor);
     injectedJavaScript = injectedJavaScript.replace("<%backgroundColor%>", backgroundColor);
+    injectedJavaScript = injectedJavaScript.replace("<%dotSize%>", dotSize);
+    injectedJavaScript = injectedJavaScript.replace("<%minWidth%>", minWidth);
 
     let html = htmlContentValue(injectedJavaScript);
     html = html.replace("<%style%>", webStyle);
@@ -93,6 +98,8 @@ const SignatureView = forwardRef(({
     <View style={[styles.webBg, style]}>
       <WebView
         automaticallyAdjustContentInsets={false}
+        bounces={false}
+        androidHardwareAccelerationDisabled={androidHardwareAccelerationDisabled}
         ref={webViewRef}
         source={source}
         onMessage={getSignature}

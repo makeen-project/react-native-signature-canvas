@@ -87,6 +87,8 @@ const content = `
         maxWidth: 10,
         penColor: '<%penColor%>',
         backgroundColor: '<%backgroundColor%>',
+        dotSize: <%dotSize%>,
+        minWidth: <%minWidth%>,
     });
 
     function clearSignature (event) {
